@@ -204,9 +204,33 @@
 <p class="note">※ 기사 제목을 누르면 원문으로 이동함</p>
 
 
+<div class="archive">
 <h2>지난 판</h2>
-<ul class="dash">
-  <li><a href="261022.html">'26.10.22</a></li>
-</ul>
+<div id="arc">
+  <a href="261022.html">'26.10.22</a>
+</div>
+<div id="pg"></div>
+</div>
+<style>
+  #arc { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 11pt; }
+  #pg { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+  #pg button { font: 10pt "Apple SD Gothic Neo", sans-serif; min-width: 30px; padding: 3px 8px;
+               border: 1px solid #1f3d63; background: #fff; color: #1f3d63; cursor: pointer; }
+  #pg button.on { background: #1f3d63; color: #fff; }
+  @media print { .archive { display: none; } }
+</style>
+<script>
+(function () {
+  var a = [].slice.call(document.querySelectorAll("#arc a")), n = 20, g = document.getElementById("pg");
+  function show(k) {
+    a.forEach(function (x, i) { x.style.display = (i >= k * n && i < (k + 1) * n) ? "" : "none"; });
+    [].forEach.call(g.children, function (b, i) { b.className = i === k ? "on" : ""; });
+  }
+  for (var i = 0; a.length > n && i < Math.ceil(a.length / n); i++) {
+    var b = document.createElement("button"); b.textContent = i + 1; b.onclick = show.bind(null, i); g.appendChild(b);
+  }
+  show(0);
+})();
+</script>
 </body>
 </html>
